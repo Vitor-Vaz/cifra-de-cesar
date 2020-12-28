@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cifra de Cesar</title>
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Antic&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <h1>Cifra de Cesar</h1>
+        </header>
+        <main>
+
+            <div class="container">
+                <p>Digite uma frase</p>
+                <input id="frase-input" type="text" >
+
+                <p>Coloque a quantidade de pulos</p>
+                <input id="pulos-input" type="number">
+
+
+                <button onclick="pegaFrase()">Converter</button>
+                <div class="result">
+                    <p id="resultado"></p>
+                </div>
+                
+            </div>
+        </main>
+
+        <footer><> Vitor Vaz</footer>
+        <script>
+            
+            function pegaFrase() {
+
+                var frase = document.getElementById("frase-input").value;
+                
+                var desloc = parseInt(document.getElementById("pulos-input").value);//= parseInt(prompt("Digite a quantidade de deslocamento"));
+                
+                var novaFrase = [];
+                var fraseFinal = "";
+
+                //bloco que trata o deslocamento impedindo que saia do alfabeto
+                while (desloc > 26) {
+                    desloc = desloc - 26;
+                    //console.log(desloc);
+                }
+
+                //bloco que converte um strin para um array de numeros da tabela ascii de acordo com o deslocamento e retorna a conversão
+
+                for (i = 0; i < frase.length; i++) {
+                    if (frase[i] == " ") {
+                        novaFrase[i] = frase.charCodeAt(i);
+                        fraseFinal = fraseFinal + String.fromCharCode(novaFrase[i]);
+                    } else {
+                        novaFrase[i] = frase.charCodeAt(i);
+                        //console.log(novaFrase[i]);
+                        novaFrase[i] += desloc;
+                        //esse if previne que o numero da tabela ascii não ultrapasse o alfabeto
+                        if (novaFrase[i] > 122) {
+                            novaFrase[i] -= 26;
+                        }
+                        fraseFinal = fraseFinal + String.fromCharCode(novaFrase[i]);
+                    }
+
+                }
+
+                //console.log(novaFrase);
+                console.log(fraseFinal);
+                document.getElementById("resultado").innerText = fraseFinal;
+
+            }
+        </script>
+
+    </body>
+</html>
